@@ -1,0 +1,23 @@
+{
+    "name": "atike/laravel-repositorier",
+    "description": "A package to use repository pattern in laravel",
+    "license": "MIT",
+    "require": {
+        "php": "^7.4|^8.0",
+        "laravel/framework": "^8.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Atike\\LaravelRepositorier\\": "src"
+        }
+    },
+    "autoload-dev": {
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+    }
+}
