@@ -1,6 +1,6 @@
 <?php
 
-namespace Atike\LaravelRepositorier\Interfaces;
+namespace Atikercan\LaravelRepositorier\Interfaces;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

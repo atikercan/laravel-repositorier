@@ -1,5 +1,5 @@
 {
-    "name": "atike/laravel-repositorier",
+    "name": "atikercan/laravel-repositorier",
     "description": "A package to use repository pattern in laravel",
     "license": "MIT",
     "require": {
@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Atike\\LaravelRepositorier\\": "src"
+            "Atikercan\\LaravelRepositorier\\": "src"
         }
     },
     "autoload-dev": {

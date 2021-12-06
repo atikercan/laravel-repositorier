@@ -1,6 +1,6 @@
 <?php
 
-namespace Atike\LaravelRepositorier;
+namespace Atikercan\LaravelRepositorier;
 
 use Illuminate\Database\Eloquent\Builder;
 

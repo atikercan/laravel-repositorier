@@ -1,10 +1,10 @@
 <?php
 
-namespace Atike\LaravelRepositorier\Eloquent;
+namespace Atikercan\LaravelRepositorier\Eloquent;
 
-use Atike\LaravelRepositorier\Interfaces\BaseRepositoryInterface;
-use Atike\LaravelRepositorier\Interfaces\RepositoryInterface;
-use Atike\LaravelRepositorier\Criteria;
+use Atikercan\LaravelRepositorier\Interfaces\BaseRepositoryInterface;
+use Atikercan\LaravelRepositorier\Interfaces\RepositoryInterface;
+use Atikercan\LaravelRepositorier\Criteria;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
