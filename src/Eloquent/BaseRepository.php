@@ -91,13 +91,17 @@ class BaseRepository implements BaseRepositoryInterface {
 
     /**
      * Update a model
-     * @param int|mixed $id
+     * @param int|mixed $idOrModel
      * @param array|mixed $data
      * @return bool|mixed
      */
-    public function update($id, array $data)
+    public function update($idOrModel, array $data)
     {
-        return $this->model::find($id)->update($data);
+        if( is_numeric($idOrModel) ) {
+            return $this->model::find($idOrModel)->update($data);
+        } else {
+            return $idOrModel->update($data);
+        }
     }
 
     /**
