@@ -152,9 +152,11 @@ class BaseRepository implements BaseRepositoryInterface {
 
     /**
      * @param Criteria|null $criteria
+     * @return BaseRepositoryInterface
      */
-    public function setCriteria(?Criteria $criteria): void
+    public function setCriteria(?Criteria $criteria): BaseRepositoryInterface
     {
         $this->criteria = $criteria;
+        return $this;
     }
 }
