@@ -2,9 +2,15 @@
     "name": "atikercan/laravel-repositorier",
     "description": "A package to use repository pattern in laravel",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Atik Ercan",
+            "email": "atikercann@gmail.com"
+        }
+    ],
     "require": {
         "php": "^7.4|^8.0",
-        "laravel/framework": "^8.0"
+        "laravel/framework": "^8.0|^9.0"
     },
     "require-dev": {
     },
