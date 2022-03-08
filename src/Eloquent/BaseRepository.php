@@ -64,7 +64,7 @@ class BaseRepository implements BaseRepositoryInterface {
      * Returns the first matching row
      * @return mixed|null
      */
-    public function first(): ?mixed
+    public function first(): mixed
     {
         $query = $this->query();
         if(!is_null($this->criteria)) {
