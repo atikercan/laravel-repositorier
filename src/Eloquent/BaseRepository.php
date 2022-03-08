@@ -51,7 +51,7 @@ class BaseRepository implements BaseRepositoryInterface {
      */
     public function all(): ?Collection
     {
-        $query = $this->query();
+        $query = $this->query()->clone();
         if(!is_null($this->criteria)) {
             $this->criteria->apply($query);
         }
@@ -66,7 +66,7 @@ class BaseRepository implements BaseRepositoryInterface {
      */
     public function first(): mixed
     {
-        $query = $this->query();
+        $query = $this->query()->clone();
         if(!is_null($this->criteria)) {
             $this->criteria->apply($query);
         }
@@ -134,7 +134,7 @@ class BaseRepository implements BaseRepositoryInterface {
      * @return LengthAwarePaginator|null
      */
     public function paginate(int $limit = 15) : LengthAwarePaginator {
-        $query = $this->query();
+        $query = $this->query()->clone();
         if(!is_null($this->criteria)) {
             $this->criteria->apply($query);
         }
