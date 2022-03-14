@@ -4,22 +4,17 @@ namespace Atikercan\LaravelRepositorier;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class Criteria
+class Scope
 {
     /**
      * @var string[]
      */
-    private $filterTypes = [ 'where', 'orWhere', 'whereNull', 'orWhereNull', 'whereHas', 'orWhereHas', 'whereDoesntHave', 'orWhereDoesntHave', 'has', 'orHas', 'hasNested', 'orHasNested' ];
+    private array $types = [ 'where', 'orWhere', 'whereNull', 'orWhereNull', 'whereHas', 'orWhereHas', 'whereDoesntHave', 'orWhereDoesntHave', 'has', 'orHas', 'hasNested', 'orHasNested' ];
 
     /**
      * @var array
      */
-    protected $filters = [];
-
-    /**
-     * @var string
-     */
-    protected $type = 'where';
+    protected array $scopes = [];
 
     /**
      * @param array $filters
@@ -30,7 +25,7 @@ class Criteria
             if(in_array($params[0], $this->scopes, true)) {
                 $type = array_shift($params);
             }
-            $this->addFilter($type, $params);
+            $this->addScope($type, $params);
         }
     }
 
@@ -38,26 +33,27 @@ class Criteria
      * Applies filters to a query
      * @param Builder $query
      */
-    public function apply(Builder &$query) {
-        foreach($this->getFilters() as $filter) {
-            call_user_func_array( array($query, $filter['type']), $filter['params']);
+    public function apply(Builder &$query):void
+    {
+        foreach($this->getScopes() as $scope) {
+            call_user_func_array( array($query, $scope['type']), $scope['params']);
         }
     }
 
     /**
      * @return array
      */
-    public function getFilters(): array
+    public function getScopes(): array
     {
-        return $this->filters;
+        return $this->scopes;
     }
 
     /**
-     * @param array $filters
+     * @param array $scopes
      */
-    public function setFilters(array $filters): void
+    public function setScopes(array $scopes): void
     {
-        $this->filters = $filters;
+        $this->scopes = $scopes;
     }
 
     /**
@@ -66,23 +62,24 @@ class Criteria
      * @param mixed $params
      * @return void
      */
-    protected function addFilter(string $type, $params) {
-        $filters = $this->getFilters();
+    protected function addScope(string $type, $params):void
+    {
+        $filters = $this->getScopes();
         $filters[] = [
             'type' => $type,
             'params' => $params
         ];
-        $this->setFilters($filters);
+        $this->setScopes($filters);
     }
 
     /**
      * @param $method
      * @param mixed $params
-     * @return Criteria
+     * @return Scope
      */
     public function __call($method, $params) {
-        if(in_array($method, $this->filterTypes)) {
-            $this->addFilter($method, $params);
+        if(in_array($method, $this->types, true)) {
+            $this->addScope($method, $params);
         }
 
         return $this;

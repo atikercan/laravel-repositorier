@@ -5,12 +5,18 @@ namespace Atikercan\LaravelRepositorier\Eloquent;
 use Atikercan\LaravelRepositorier\Interfaces\BaseRepositoryInterface;
 use Atikercan\LaravelRepositorier\Interfaces\RepositoryInterface;
 use Atikercan\LaravelRepositorier\Criteria;
+use Atikercan\LaravelRepositorier\Scope;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class BaseRepository implements BaseRepositoryInterface {
+    /**
+     * Variable to keep pre populated fields to apply to every single object
+     * @var array
+     */
+    protected array $prePopulatedFields = [];
     /**
      * Model object to use in the repository
      */
@@ -20,7 +26,13 @@ class BaseRepository implements BaseRepositoryInterface {
      * Variable to keep criteria to be used in queries
      * @var null|Criteria
      */
-    protected $criteria = null;
+    protected ?Criteria $criteria = null;
+
+    /**
+     * Variable to keep scopes to be used in queries
+     * @var null|Scope
+     */
+    protected ?Scope $scope = null;
 
     /**
      * Query to use in database actions
@@ -32,7 +44,7 @@ class BaseRepository implements BaseRepositoryInterface {
         if ($this->model == null) {
             throw new Exception("Model class is not defined!");
         }
-        $this->query = $this->model::query();
+        $this->resetQuery();
     }
 
     /**
@@ -90,8 +102,16 @@ class BaseRepository implements BaseRepositoryInterface {
      */
     public function resetQuery(): ?Builder
     {
-        $this->query = $this->model::query();
-        return $this->query();
+        $query = $this->model::query();
+
+        //applyScopes
+        if(!is_null($this->scope)) {
+            $this->scope->apply($query);
+        }
+
+        $this->query = $query;
+
+        return $this->query;
     }
 
     /**
@@ -101,6 +121,7 @@ class BaseRepository implements BaseRepositoryInterface {
      */
     public function create($data): ?Model
     {
+        $data = array_merge($data, $this->getPrePopulatedFields());
         return $this->model::create($data);
     }
 
@@ -112,6 +133,7 @@ class BaseRepository implements BaseRepositoryInterface {
      */
     public function update($idOrModel, array $data)
     {
+        $data = array_merge($data, $this->getPrePopulatedFields());
         if( is_numeric($idOrModel) ) {
             return $this->model::find($idOrModel)->update($data);
         } else {
@@ -157,6 +179,42 @@ class BaseRepository implements BaseRepositoryInterface {
     public function setCriteria(?Criteria $criteria): BaseRepositoryInterface
     {
         $this->criteria = $criteria;
+        return $this;
+    }
+
+    /**
+     * @return Scope|null
+     */
+    public function getScope(): ?Scope
+    {
+        return $this->criteria;
+    }
+
+    /**
+     * @param Scope|null $scope
+     * @return BaseRepositoryInterface
+     */
+    public function setScope(?Criteria $scope): BaseRepositoryInterface
+    {
+        $this->scope = $scope;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrePopulatedFields(): array
+    {
+        return $this->prePopulatedFields;
+    }
+
+    /**
+     * @param array $fields
+     * @return BaseRepositoryInterface
+     */
+    public function setPrepopulatedFields(array $fields): BaseRepositoryInterface
+    {
+        $this->prePopulatedFields = $fields;
         return $this;
     }
 }
