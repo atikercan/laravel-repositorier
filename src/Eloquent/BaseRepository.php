@@ -194,7 +194,7 @@ class BaseRepository implements BaseRepositoryInterface {
      * @param Scope|null $scope
      * @return BaseRepositoryInterface
      */
-    public function setScope(?Criteria $scope): BaseRepositoryInterface
+    public function setScope(?Scope $scope): BaseRepositoryInterface
     {
         $this->scope = $scope;
         return $this;
