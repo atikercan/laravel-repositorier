@@ -156,7 +156,7 @@ class BaseRepository implements BaseRepositoryInterface {
      * @return LengthAwarePaginator|null
      */
     public function paginate(int $limit = 15) : LengthAwarePaginator {
-        $query = $this->query()->clone();
+        $query = $this->resetQuery()->clone();
         if(!is_null($this->criteria)) {
             $this->criteria->apply($query);
         }
