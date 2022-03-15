@@ -22,7 +22,7 @@ class Scope
     public function __construct(array $filters = []) {
         foreach($filters as $params) {
             $type = 'where';
-            if(in_array($params[0], $this->scopes, true)) {
+            if(in_array($params[0], $this->types, true)) {
                 $type = array_shift($params);
             }
             $this->addScope($type, $params);
