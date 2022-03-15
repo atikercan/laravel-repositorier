@@ -147,7 +147,9 @@ class BaseRepository implements BaseRepositoryInterface {
      */
     public function delete($id)
     {
-        return $this->model::destroy($id);
+        $pk = (new $this->model)->getKeyName();
+        $query = $this->resetQuery()->clone();
+        return $query->where($pk, $id)->delete();
     }
 
     /**
