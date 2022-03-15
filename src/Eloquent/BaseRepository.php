@@ -187,7 +187,7 @@ class BaseRepository implements BaseRepositoryInterface {
      */
     public function getScope(): ?Scope
     {
-        return $this->criteria;
+        return $this->scope;
     }
 
     /**
