@@ -23,6 +23,11 @@ class BaseRepository implements BaseRepositoryInterface {
     protected $model = null;
 
     /**
+     * relations to load automatically
+     */
+    protected array $with = [];
+
+    /**
      * Variable to keep criteria to be used in queries
      * @var null|Criteria
      */
@@ -218,5 +223,23 @@ class BaseRepository implements BaseRepositoryInterface {
     {
         $this->prePopulatedFields = $fields;
         return $this;
+    }
+
+
+
+    /**
+     * @return array
+     */
+    public function getWith(): array
+    {
+        return $this->with;
+    }
+
+    /**
+     * @param array $with
+     */
+    public function setWith(array $with): void
+    {
+        $this->with = $with;
     }
 }
