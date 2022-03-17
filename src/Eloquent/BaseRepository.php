@@ -72,6 +72,7 @@ class BaseRepository implements BaseRepositoryInterface {
         if(!is_null($this->criteria)) {
             $this->criteria->apply($query);
         }
+        $query->with($this->getWith());
         $this->resetQuery();
 
         return $query->all();
@@ -167,6 +168,7 @@ class BaseRepository implements BaseRepositoryInterface {
         if(!is_null($this->criteria)) {
             $this->criteria->apply($query);
         }
+        $query->with($this->getWith());
         $this->resetQuery();
         return $query->paginate($limit);
     }
