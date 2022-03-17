@@ -27,7 +27,7 @@ class Criteria
     public function __construct(array $filters = []) {
         foreach($filters as $params) {
             $type = 'where';
-            if(in_array($params[0], $this->scopes, true)) {
+            if(in_array($params[0], $this->filterTypes, true)) {
                 $type = array_shift($params);
             }
             $this->addFilter($type, $params);
