@@ -9,7 +9,7 @@ class Criteria
     /**
      * @var string[]
      */
-    private $filterTypes = [ 'where', 'orWhere', 'whereNull', 'orWhereNull', 'whereHas', 'orWhereHas', 'whereDoesntHave', 'orWhereDoesntHave', 'has', 'orHas', 'hasNested', 'orHasNested' ];
+    private $filterTypes = [ 'where', 'whereIn', 'orWhere', 'whereNull', 'orWhereNull', 'whereHas', 'orWhereHas', 'whereDoesntHave', 'orWhereDoesntHave', 'has', 'orHas', 'hasNested', 'orHasNested' ];
 
     /**
      * @var array
