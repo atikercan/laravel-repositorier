@@ -9,7 +9,7 @@ class Scope
     /**
      * @var string[]
      */
-    private array $types = [ 'where', 'whereIn', 'orWhere', 'whereNull', 'orWhereNull', 'whereHas', 'orWhereHas', 'whereDoesntHave', 'orWhereDoesntHave', 'has', 'orHas', 'hasNested', 'orHasNested' ];
+    private array $types = [ 'where', 'whereIn', 'whereNotIn', 'orWhere', 'whereNull', 'orWhereNull', 'whereHas', 'orWhereHas', 'whereDoesntHave', 'orWhereDoesntHave', 'has', 'orHas', 'hasNested', 'orHasNested' ];
 
     /**
      * @var array
