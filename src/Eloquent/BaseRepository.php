@@ -28,6 +28,11 @@ class BaseRepository implements BaseRepositoryInterface {
     protected array $with = [];
 
     /**
+     * orderBys
+     */
+    protected array $orderBy = [];
+
+    /**
      * Variable to keep criteria to be used in queries
      * @var null|Criteria
      */
@@ -113,6 +118,12 @@ class BaseRepository implements BaseRepositoryInterface {
         //applyScopes
         if(!is_null($this->scope)) {
             $this->scope->apply($query);
+        }
+
+        if(count($this->orderBy)>0) {
+            foreach($this->orderBy as $ob) {
+                $query->orderBy($ob[0], $ob[1]);
+            }
         }
 
         $this->query = $query;
@@ -243,5 +254,21 @@ class BaseRepository implements BaseRepositoryInterface {
     public function setWith(array $with): void
     {
         $this->with = $with;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrderBy(): array
+    {
+        return $this->orderBy;
+    }
+
+    /**
+     * @param array $with
+     */
+    public function setOrderBy(array $orderBy): void
+    {
+        $this->orderBy = $orderBy;
     }
 }
