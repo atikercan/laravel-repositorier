@@ -28,6 +28,11 @@ class BaseRepository implements BaseRepositoryInterface {
     protected array $with = [];
 
     /**
+     * count of relations to load automatically
+     */
+    protected array $withCount = [];
+
+    /**
      * orderBys
      */
     protected array $orderBy = [];
@@ -78,6 +83,7 @@ class BaseRepository implements BaseRepositoryInterface {
             $this->criteria->apply($query);
         }
         $query->with($this->getWith());
+        $query->withCount($this->getWithCount());
         $this->resetQuery();
 
         return $query->all();
@@ -93,6 +99,9 @@ class BaseRepository implements BaseRepositoryInterface {
         if(!is_null($this->criteria)) {
             $this->criteria->apply($query);
         }
+        $query->with($this->getWith());
+        $query->withCount($this->getWithCount());
+
         $this->resetQuery();
 
         return $query->first();
@@ -179,7 +188,10 @@ class BaseRepository implements BaseRepositoryInterface {
         if(!is_null($this->criteria)) {
             $this->criteria->apply($query);
         }
+
         $query->with($this->getWith());
+        $query->withCount($this->getWithCount());
+
         $this->resetQuery();
         return $query->paginate($limit);
     }
@@ -270,5 +282,21 @@ class BaseRepository implements BaseRepositoryInterface {
     public function setOrderBy(array $orderBy): void
     {
         $this->orderBy = $orderBy;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWithCount(): array
+    {
+        return $this->withCount;
+    }
+
+    /**
+     * @param array $with
+     */
+    public function setWithCount(array $withCount): void
+    {
+        $this->withCount = $withCount;
     }
 }
